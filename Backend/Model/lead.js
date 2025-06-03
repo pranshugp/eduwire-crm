@@ -5,14 +5,12 @@ const mongoose = require('mongoose');
 
 
 const leadSchema = new mongoose.Schema({
-    firstname :{
+   fullname :{
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
-    lastname :{
-        type: String,
-        required: true
-    },
+    
     email: {
         type: String,
         required: true,
@@ -24,15 +22,50 @@ const leadSchema = new mongoose.Schema({
         required: true,
         match: /^\d{10}$/
     },
-    countryofinterest: {
+    DOB:{
+        type: Date,
+        required: true
+    },
+    gender:{
+        type: String,
+        enum:['Male','Female','Other'],
+        required: true
+    },
+    countryofresidence:{
+        type: String,
+        required: true
+    },
+    preferencecountry:{
+        type: String,
+        required: true
+    },
+    prefferredcourse:{
+        type: String,
+        required: true
+    },
+    intake:{
+        type: String,
+        
+        required: true
+    },
+    qualification:{
+        type: String,
+        required: true
+    },
+    score:{
+        type: String,
+        enum: ['IELTS', 'TOEFL', 'None'],
+        default: 'None'
+    },
+    budget:{
         type: String,
         required: true
     },
 
-    course : {
-        type: String,
-        required: true
-    },
+ 
+   
+
+   
     source:{
         type: String,
         required: true
@@ -42,21 +75,24 @@ const leadSchema = new mongoose.Schema({
         enum: ['New', 'In Progress', 'Followed Up', 'Converted', 'Not Interested'],
         default: 'New'
     },
+    leaddate:{
+        type: Date,
+        default: Date.now
+    },
 
      assignedTo: {
     type: String, // just store counsellor name
     default: 'Unassigned'
   },
-    followUps: [{
-        date: {
-            type: Date,
-            default: Date.now
-        },
-        notes: {
-            type: String,
-            required: true
-        }
-    }],
+  counsellorname:{
+        type: String,
+        required: true
+        
+  },
+  remarks: {
+    type: String,
+  },
+    
     createdAt: {
         type: Date,
         default: Date.now
