@@ -53,8 +53,8 @@ const leadSchema = new mongoose.Schema({
         required: true
     },
     score:{
-        type: String,
-        enum: ['IELTS', 'TOEFL', 'None'],
+        type: Number,
+        
         default: 'None'
     },
     budget:{
