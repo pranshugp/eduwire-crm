@@ -80,15 +80,15 @@ const leadSchema = new mongoose.Schema({
         default: Date.now
     },
 
-     assignedTo: {
-    type: String, // just store counsellor name
-    default: 'Unassigned'
-  },
-  counsellorname:{
-        type: String,
-        required: true
-        
-  },
+   assignedTo: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'User',
+  default: null
+},
+counsellorname: {
+  type: String,  // can be optional if you use assignedTo ref
+}
+,
   remarks: {
     type: String,
   },
@@ -97,6 +97,8 @@ const leadSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 
 })
 

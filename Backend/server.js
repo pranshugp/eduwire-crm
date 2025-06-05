@@ -6,7 +6,13 @@ const cors = require('cors');
 const { connectDB } = require('./config/dbconnection');
 const app = express();
 const PORT = process.env.PORT || 5000;
+const userRoutes = require('./Routes/userRoutes');
 
+
+
+
+
+app.use(express.json());
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -24,6 +30,13 @@ app.get('/', (req, res) => {
 });
 
 
+
+
+
+app.use('/api/users', require('./Routes/userRoutes'));
+
+
+app.use('/api/auth', require('./Routes/authRoutes'));
 app.use('/api', require('./Routes/leadRoutes')); 
 
 
