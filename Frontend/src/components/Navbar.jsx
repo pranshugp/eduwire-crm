@@ -24,7 +24,9 @@ const Navbar = () => {
             {user.role === 'admin' && (
               <>
                 <Link to="/leads">All Leads</Link>
-                <Link to="/users">Manage Users</Link>
+                 <Link to="/admin/counsellors" className="text-blue-600 hover:underline">
+    Manage Users
+  </Link>
               </>
             )}
 
@@ -41,6 +43,10 @@ const Navbar = () => {
                 <Link to="/student/request-edit">Request Edit</Link>
               </>
             )}
+
+            {user && (
+  <Link to="/profile" className="text-blue-500 underline">My Profile</Link>
+)}
 
             <button
               onClick={handleLogout}
