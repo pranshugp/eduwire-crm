@@ -27,7 +27,7 @@ const Sidebar = () => {
             {user.role === 'admin' && (
               <>
                 <SidebarItem to="/leads" icon={<FaClipboardList className="text-blue-600" />} label="All Leads" />
-                <SidebarItem to="/admin/counsellors" icon={<FaUser />} label="Manage Users" />
+                <SidebarItem to="/admin/counsellors" icon={<FaUser className="text-blue-600" />} label="Manage Users" />
               </>
             )}
 
