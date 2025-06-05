@@ -10,12 +10,16 @@ import NotFoundPage from './pages/NotPage';
 import Profile from './pages/Profile';
 import AdminCounsellorList from './pages/AdminCounsellorList';
 import AdminCounsellorDetails from './pages/AdminCourseDetails';
+import RequestEdit from './pages/RequestEdit';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return (
     <Router>
       <Navbar />
+      <Sidebar/>
       <Routes>
+         <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} allowedRoles={['admin', 'counsellor','student']} />} />
     <Route path="/leads" element={<PrivateRoute element={<LeadsPage />} allowedRoles={['admin', 'counsellor']} />} />
 <Route path="/leads/new" element={<PrivateRoute element={<NewEnquiryPage />} allowedRoles={['admin', 'counsellor']} />} />
 <Route path="/leads/edit/:id" element={<PrivateRoute element={<NewEnquiryPage />} allowedRoles={['admin']} />} />
@@ -24,7 +28,7 @@ function App() {
 
 {/* Student only routes */}
 <Route path="/student/info" element={<PrivateRoute element={<Profile/>} allowedRoles={['student']} />} />
-<Route path="/student/request-edit" element={<PrivateRoute element={<h1>Request edit</h1>} allowedRoles={['student']} />} />
+<Route path="/student/request-edit" element={<PrivateRoute element={<RequestEdit/>} allowedRoles={['student']} />} />
 
 {/* Catch-all */}
 <Route path="*" element={<NotFoundPage />} />

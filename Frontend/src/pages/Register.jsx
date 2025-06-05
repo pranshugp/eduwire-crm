@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import axios from '../axios'; // Make sure this is configured properly (baseURL etc.)
+import axios from '../axios';
 import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -11,50 +12,58 @@ const Register = () => {
     confirmPassword: ''
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setError('');
     setSuccessMsg('');
 
     if (formData.password !== formData.confirmPassword) {
-      return setError('Passwords do not match');
+      return setError('❌ Passwords do not match');
     }
 
+    setLoading(true);
     try {
       const { name, email, role, password } = formData;
-      const res = await axios.post('/auth/register', {
-        name,
-        email,
-        role,
-        password
-      });
+      await axios.post('/auth/register', { name, email, role, password });
 
-      setSuccessMsg('Registration successful! Redirecting to login...');
-      setTimeout(() => navigate('/login'), 1500);
+      setSuccessMsg('✅ Registration successful! Redirecting...');
+      setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed');
+      setError(err.response?.data?.message || '❌ Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
-        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">Create Account</h2>
 
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        {successMsg && <p className="text-green-600 mb-4">{successMsg}</p>}
+        {error && (
+          <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 border border-red-300">
+            {error}
+          </div>
+        )}
+
+        {successMsg && (
+          <div className="bg-green-100 text-green-700 px-4 py-2 rounded mb-4 border border-green-300">
+            {successMsg}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -64,51 +73,73 @@ const Register = () => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-400"
           />
+
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Email Address"
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-400"
           />
+
           <select
             name="role"
             value={formData.role}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border rounded bg-white focus:ring-2 focus:ring-blue-400"
           >
             <option value="student">Student</option>
             <option value="counsellor">Counsellor</option>
             <option value="admin">Admin</option>
           </select>
-          <input
-            type="password"
-            name="password"
-            placeholder="Password (min 6 chars)"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            minLength="6"
-            className="w-full px-4 py-2 border rounded"
-          />
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border rounded"
-          />
+
+          <div className="relative">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              placeholder="Password (min 6 chars)"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              minLength="6"
+              className="w-full px-4 py-2 border rounded pr-10 focus:ring-2 focus:ring-blue-400"
+            />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-3.5 text-gray-600 cursor-pointer"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
+          <div className="relative">
+            <input
+              type={showConfirmPassword ? 'text' : 'password'}
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border rounded pr-10 focus:ring-2 focus:ring-blue-400"
+            />
+            <span
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute right-3 top-3.5 text-gray-600 cursor-pointer"
+            >
+              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+            disabled={loading}
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition disabled:opacity-50"
           >
-            Register
+            {loading ? 'Registering...' : 'Register'}
           </button>
         </form>
       </div>

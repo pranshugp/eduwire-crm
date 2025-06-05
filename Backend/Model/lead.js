@@ -62,7 +62,11 @@ const leadSchema = new mongoose.Schema({
         required: true
     },
 
- 
+ editRequest: {
+  type: String,
+  default: '',
+},
+
    
 
    

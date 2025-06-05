@@ -9,7 +9,8 @@ exports.createLead = async (req, res) => {
 
 exports.getAllLeads = async (req, res) => {
   const leads = await Lead.find().populate('assignedTo').populate('createdBy');
-  res.json(leads);
+  const total = await Lead.countDocuments();
+  res.json(leads,total);
 };
 
 exports.getMyLeads = async (req, res) => {

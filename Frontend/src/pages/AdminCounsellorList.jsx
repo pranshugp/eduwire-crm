@@ -19,18 +19,22 @@ const AdminCounsellorList = () => {
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">All Counsellors</h1>
-      <ul className="space-y-3">
+    <div className="pl-64 p-6 bg-gray-50 min-h-screen">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800">All Counsellors</h1>
+      <div className="grid gap-4 md:grid-cols-2">
         {counsellors.map((c) => (
-          <li key={c._id} className="border p-3 rounded">
-            <p><strong>{c.name}</strong> ({c.email})</p>
-            <Link to={`/admin/counsellors/${c._id}`} className="text-blue-500 underline">
+          <div key={c._id} className="border p-4 rounded-lg shadow bg-white">
+            <p className="text-lg font-semibold">{c.name}</p>
+            <p className="text-gray-600">{c.email}</p>
+            <Link
+              to={`/admin/counsellors/${c._id}`}
+              className="text-blue-600 underline mt-2 inline-block"
+            >
               View Details
             </Link>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
