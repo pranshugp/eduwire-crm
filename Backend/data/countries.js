@@ -1,0 +1,26 @@
+// data/countries.js
+module.exports = [
+  { name: 'United States' },
+  { name: 'United Kingdom' },
+  { name: 'Canada' },
+  { name: 'Australia' },
+  { name: 'New Zealand' },
+  { name: 'Germany' },
+  { name: 'France' },
+  { name: 'Italy' },
+  { name: 'Ireland' },
+  { name: 'Singapore' },
+  { name: 'UAE' },
+  { name: 'India' },
+  { name: 'Sweden' },
+  { name: 'Norway' },
+  { name: 'Finland' },
+  { name: 'Japan' },
+  { name: 'South Korea' },
+  { name: 'China' },
+  { name: 'Russia' },
+  { name: 'Romania' },
+  { name: 'Poland' },
+  { name: 'Netherlands' },
+  { name: 'Switzerland' }
+];

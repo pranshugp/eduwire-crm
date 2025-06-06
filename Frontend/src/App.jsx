@@ -12,6 +12,10 @@ import AdminCounsellorList from './pages/AdminCounsellorList';
 import AdminCounsellorDetails from './pages/AdminCourseDetails';
 import RequestEdit from './pages/RequestEdit';
 import Sidebar from './components/Sidebar';
+import ViewCountries from './pages/ViewCountries';
+import ViewRepresentingCountries from './pages/ViewRepresentingCountries';
+import AddRepresentingCountry from './pages/AddRepresentingCountry';
+import ManageStatuses from './pages/ManageStatuses';
 
 function App() {
   return (
@@ -24,6 +28,10 @@ function App() {
 <Route path="/leads/new" element={<PrivateRoute element={<NewEnquiryPage />} allowedRoles={['admin', 'counsellor']} />} />
 <Route path="/leads/edit/:id" element={<PrivateRoute element={<NewEnquiryPage />} allowedRoles={['admin']} />} />
 <Route path="/leads/mine" element={<PrivateRoute element={<LeadsPage/>} allowedRoles={['counsellor']} />} />
+<Route path="/countries" element={<ViewCountries />} />
+        <Route path="/representing-countries" element={<ViewRepresentingCountries />} />
+       <Route path="/representing-countries/add" element={<PrivateRoute element={<AddRepresentingCountry />} allowedRoles={['admin']} />} />
+      
 
 
 {/* Student only routes */}

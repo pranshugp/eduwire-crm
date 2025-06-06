@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { FaHome, FaUser, FaClipboardList, FaUserEdit, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
+import { 
+  FaHome, FaUser, FaClipboardList, FaUserEdit, FaSignInAlt, FaUserPlus,
+  FaGlobe, FaFlag, FaPlusCircle
+} from 'react-icons/fa';
 
 const Sidebar = () => {
   const user = useSelector((state) => state.auth.user);
@@ -14,18 +17,20 @@ const Sidebar = () => {
     >
       <nav className="flex flex-col gap-4 p-4">
         {!user ? (
-          // User is NOT logged in
           <>
             <SidebarItem to="/login" icon={<FaSignInAlt className="text-blue-600" />} label="Login" />
             <SidebarItem to="/register" icon={<FaUserPlus className="text-blue-600" />} label="Register" />
           </>
         ) : (
-          // User is logged in
           <>
             <SidebarItem to="/dashboard" icon={<FaHome className="text-blue-600" />} label="Dashboard" />
 
+            <SidebarItem to="/countries" icon={<FaGlobe className="text-blue-600" />} label="All Countries" />
+            <SidebarItem to="/representing-countries" icon={<FaFlag className="text-blue-600" />} label="Representing Countries" />
+
             {user.role === 'admin' && (
               <>
+                <SidebarItem to="/representing-countries/add" icon={<FaPlusCircle className="text-blue-600" />} label="Add Representing" />
                 <SidebarItem to="/leads" icon={<FaClipboardList className="text-blue-600" />} label="All Leads" />
                 <SidebarItem to="/admin/counsellors" icon={<FaUser className="text-blue-600" />} label="Manage Users" />
               </>
