@@ -16,6 +16,8 @@ import ViewCountries from './pages/ViewCountries';
 import ViewRepresentingCountries from './pages/ViewRepresentingCountries';
 import AddRepresentingCountry from './pages/AddRepresentingCountry';
 import ManageStatuses from './pages/ManageStatuses';
+import AddInstitution from './pages/AddInstitution';
+import ViewInstitutions from './pages/ViewInstitution';
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
         <Route path="/representing-countries" element={<ViewRepresentingCountries />} />
        <Route path="/representing-countries/add" element={<PrivateRoute element={<AddRepresentingCountry />} allowedRoles={['admin']} />} />
       
+<Route path="/institutions/add" element={<PrivateRoute allowedRoles={['admin']} element={<AddInstitution />} />} />
+<Route path="/institutions" element={<PrivateRoute allowedRoles={['admin', 'counsellor']} element={<ViewInstitutions/>} />} />
 
 
 {/* Student only routes */}

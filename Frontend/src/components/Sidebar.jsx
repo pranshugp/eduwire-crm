@@ -28,13 +28,16 @@ const Sidebar = () => {
             <SidebarItem to="/countries" icon={<FaGlobe className="text-blue-600" />} label="All Countries" />
             <SidebarItem to="/representing-countries" icon={<FaFlag className="text-blue-600" />} label="Representing Countries" />
 
-            {user.role === 'admin' && (
-              <>
-                <SidebarItem to="/representing-countries/add" icon={<FaPlusCircle className="text-blue-600" />} label="Add Representing" />
-                <SidebarItem to="/leads" icon={<FaClipboardList className="text-blue-600" />} label="All Leads" />
-                <SidebarItem to="/admin/counsellors" icon={<FaUser className="text-blue-600" />} label="Manage Users" />
-              </>
-            )}
+           {user.role === 'admin' && (
+  <>
+    <SidebarItem to="/representing-countries/add" icon={<FaPlusCircle className="text-blue-600" />} label="Add Representing" />
+    <SidebarItem to="/institutions/add" icon={<FaPlusCircle className="text-green-600" />} label="Add Institution" />
+    <SidebarItem to="/institutions" icon={<FaFlag className="text-green-600" />} label="View Institutions" />
+    <SidebarItem to="/leads" icon={<FaClipboardList className="text-blue-600" />} label="All Leads" />
+    <SidebarItem to="/admin/counsellors" icon={<FaUser className="text-blue-600" />} label="Manage Users" />
+  </>
+)}
+
 
             {user.role === 'counsellor' && (
               <>

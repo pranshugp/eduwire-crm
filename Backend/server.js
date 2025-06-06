@@ -11,6 +11,8 @@ const countryRoutes = require('./Routes/represnetingRoutes');
 const Country = require('./Model/country'); // If you want to seed
 const countries = require('./data/countries'); // Optional
 const statusRoutes = require('./Routes/statusRoutes');
+const institutionsRouter = require('./Routes/institutionRoutes');
+
 
 
 
@@ -52,6 +54,8 @@ app.use('/api/users', require('./Routes/userRoutes'));
 app.use('/api/representing-countries', countryRoutes);
 
 app.use('/api/status', statusRoutes);
+app.use('/api/institutions', institutionsRouter);
+
 
 
 app.use('/api/auth', require('./Routes/authRoutes'));
