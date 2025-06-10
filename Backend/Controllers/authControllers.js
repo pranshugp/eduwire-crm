@@ -1,7 +1,7 @@
 const User = require('../Model/user');
 const generateToken = require('../utils/generateTokem');
 const sendEmail = require('../utils/sendEmail');
-const {sendWhatsApp} = require('../utils/whatsappSender');
+const sendWhatsapp = require('../utils/whatsappSender');
 const bcrypt = require('bcrypt')
 
 
@@ -31,12 +31,12 @@ exports.register = async (req, res) => {
     });
 
     await sendEmail(email, "Verify Your Email", `Your OTP is:${otp}`);
-    await sendWhatsApp(phoneno, `👋 Hi ${name}, your EduWire OTP is: ${otp}`);
+    await sendWhatsapp(phoneno, `👋 Hi ${name}, your EduWire OTP is: ${otp}`);
       if (role === 'student') {
       const welcomeMsg = `Welcome ${name} to our Consultancy! We’ll keep you updated on your application.`;
 
       await sendEmail(email, "Welcome to Our Consultancy", welcomeMsg);
-      await sendWhatsApp(phoneno, welcomeMsg);
+      await sendWhatsapp(phoneno, welcomeMsg);
     }
 
     res.status(201).json({
