@@ -31,10 +31,14 @@ const Sidebar = () => {
            {user.role === 'admin' && (
   <>
     <SidebarItem to="/representing-countries/add" icon={<FaPlusCircle className="text-blue-600" />} label="Add Representing" />
+    <SidebarItem to="/admin/counsellors/add" icon={<FaUserPlus className="text-purple-600" />} label="Add Counsellor" />
+
     <SidebarItem to="/institutions/add" icon={<FaPlusCircle className="text-green-600" />} label="Add Institution" />
     <SidebarItem to="/institutions" icon={<FaFlag className="text-green-600" />} label="View Institutions" />
     <SidebarItem to="/leads" icon={<FaClipboardList className="text-blue-600" />} label="All Leads" />
     <SidebarItem to="/admin/counsellors" icon={<FaUser className="text-blue-600" />} label="Manage Users" />
+     <SidebarItem to="/applications/new" icon={<FaUserEdit className="text-blue-600" />} label="Fill Application" />
+    <SidebarItem to="/applications" icon={<FaClipboardList className="text-blue-600" />} label="View Applications" />
   </>
 )}
 
@@ -43,6 +47,9 @@ const Sidebar = () => {
               <>
                 <SidebarItem to="/leads/mine" icon={<FaClipboardList className="text-blue-600" />} label="My Leads" />
                 <SidebarItem to="/leads/new" icon={<FaUserEdit className="text-blue-600" />} label="Add Lead" />
+                <SidebarItem to="/institutions" icon={<FaFlag className="text-green-600" />} label="View Institutions" />
+                 <SidebarItem to="/applications/new" icon={<FaUserEdit className="text-blue-600" />} label="Fill Application" />
+    <SidebarItem to="/applications" icon={<FaClipboardList className="text-blue-600" />} label="View Applications" />
               </>
             )}
 

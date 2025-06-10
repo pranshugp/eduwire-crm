@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../features/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
@@ -12,13 +12,22 @@ const Login = () => {
   const { loading, error } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value.trim() });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await dispatch(loginUser(formData));
+
     if (result.meta.requestStatus === 'fulfilled') {
+      const user = result.payload.user;
+      if (user?.isVerified === false) {
+        alert("Please verify your email before logging in.");
+        return;
+      }
+
+       // Save token after successful login
+
       navigate('/dashboard');
     }
   };
@@ -46,7 +55,7 @@ const Login = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 p-2 rounded"
           />
         </div>
 
@@ -62,7 +71,7 @@ const Login = () => {
             value={formData.password}
             onChange={handleChange}
             required
-            className="w-full border border-gray-300 p-2 pr-10 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 p-2 pr-10 rounded"
           />
           <span
             onClick={() => setShowPassword(!showPassword)}
@@ -70,6 +79,12 @@ const Login = () => {
           >
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
+        </div>
+
+        <div className="text-right text-sm">
+          <Link to="/forgot-password" className="text-blue-600 hover:underline">
+            Forgot password?
+          </Link>
         </div>
 
         <button

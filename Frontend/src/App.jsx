@@ -18,6 +18,13 @@ import AddRepresentingCountry from './pages/AddRepresentingCountry';
 import ManageStatuses from './pages/ManageStatuses';
 import AddInstitution from './pages/AddInstitution';
 import ViewInstitutions from './pages/ViewInstitution';
+import VerifyEmail from './components/VerifyEmail';
+import ForgotPassword from './components/ForgotPassword';
+
+import VerifyOtp from './components/VerifyOtp';
+import AddCounsellor from './components/AddCounsellor';
+import ViewApplications from './components/ViewApplications';
+import ApplicationForm from './components/ApplicationForm';
 
 function App() {
   return (
@@ -31,9 +38,17 @@ function App() {
 <Route path="/leads/edit/:id" element={<PrivateRoute element={<NewEnquiryPage />} allowedRoles={['admin']} />} />
 <Route path="/leads/mine" element={<PrivateRoute element={<LeadsPage/>} allowedRoles={['counsellor']} />} />
 <Route path="/countries" element={<ViewCountries />} />
-        <Route path="/representing-countries" element={<ViewRepresentingCountries />} />
-       <Route path="/representing-countries/add" element={<PrivateRoute element={<AddRepresentingCountry />} allowedRoles={['admin']} />} />
-      
+<Route path="/representing-countries" element={<ViewRepresentingCountries />} />
+<Route path="/representing-countries/add" element={<PrivateRoute element={<AddRepresentingCountry />} allowedRoles={['admin']} />} />
+<Route path="/verify-email" element={<VerifyEmail />} />
+<Route path="/forgot-password" element={<ForgotPassword />} />
+<Route path="/verify-otp" element={<VerifyOtp />} />
+<Route path="/admin/counsellors/add" element={
+  <PrivateRoute allowedRoles={['admin']} element={<AddCounsellor />} />
+} />
+         <Route path="/applications" element={<PrivateRoute allowedRoles={['admin','counsellor']} element={<ViewApplications/>} />}/>
+        <Route path="/applications/new" element={<PrivateRoute allowedRoles={['admin','counsellor']} element={<ApplicationForm/>} />}  />
+        <Route path="/applications/edit/:id" element={<PrivateRoute allowedRoles={['admin','counsellor']} element={<ApplicationForm/>} />} />
 <Route path="/institutions/add" element={<PrivateRoute allowedRoles={['admin']} element={<AddInstitution />} />} />
 <Route path="/institutions" element={<PrivateRoute allowedRoles={['admin', 'counsellor']} element={<ViewInstitutions/>} />} />
 

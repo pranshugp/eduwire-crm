@@ -13,7 +13,7 @@ const AddInstitution = () => {
     monthlyLivingCost: '',
     currency: '',
     contractTerm: '',
-    contractExpiryDate: '',
+    contractExpiry: '',
     languageRequired: 'no',
     languageRequirementDetails: '',
     qualityOfApplicant: '',
@@ -42,7 +42,9 @@ const AddInstitution = () => {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
-      });
+        
+      } , );
+      console.log(res.data)
       alert('Institution added successfully!');
     } catch (error) {
       console.error(error);
@@ -88,7 +90,7 @@ const AddInstitution = () => {
             name="instituteType"
             className="border p-2 w-full"
             onChange={handleChange}
-            value={formData.instituteType}
+            value={formData.type}
           >
             <option value="">Select</option>
             <option value="Direct">Direct</option>
@@ -187,7 +189,7 @@ const AddInstitution = () => {
             name="contractExpiryDate"
             className="border p-2 w-full"
             onChange={handleChange}
-            value={formData.contractExpiryDate}
+            value={formData.contractExpiry}
           />
         </div>
 

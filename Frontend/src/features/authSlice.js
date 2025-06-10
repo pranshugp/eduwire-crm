@@ -10,15 +10,18 @@ const initialState = {
   loading: false,
   error: null,
 };
-
-export const loginUser = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
-  try {
-    const res = await axios.post('/auth/login', credentials);
-    return res.data;
-  } catch (err) {
-    return thunkAPI.rejectWithValue(err.response.data.message);
+export const loginUser = createAsyncThunk(
+  'auth/loginUser',
+  async (formData, { rejectWithValue }) => {
+    try {
+      const res = await axios.post('/auth/login', formData);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || 'Login failed');
+    }
   }
-});
+);
+
 
 const authSlice = createSlice({
   name: 'auth',

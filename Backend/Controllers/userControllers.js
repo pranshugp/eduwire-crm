@@ -1,4 +1,7 @@
-const User = require('../Model/user');  // import your User model here
+const User = require('../Model/user');
+const bcrypt = require('bcrypt');
+const sendWhatsApp = require('../utils/whatsappSender')
+  // import your User model here
 
 exports.getUsersByRole = async (req, res) => {
   const role = req.query.role;
@@ -14,6 +17,43 @@ exports.getUsersByRole = async (req, res) => {
   }
 };
 
+
+// controllers/userController.js
+
+
+exports.createCounsellor = async (req, res) => {
+  try {
+    const { name, email, password,phoneno } = req.body;
+
+    // Check if the user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already in use' });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new counsellor
+    const newCounsellor = new User({
+      name,
+      email,
+      password: hashedPassword,
+      role: 'counsellor',
+      phoneno,
+    });
+
+    await newCounsellor.save();
+     await sendWhatsApp(phoneno, `Hi ${name}, welcome to EduWire! You can now log in.`);
+
+    // Send response without password
+    const { password: _, ...counsellorData } = newCounsellor.toObject();
+    res.status(201).json(counsellorData);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error creating counsellor' });
+  }
+};
 
 // controllers/userController.js
 

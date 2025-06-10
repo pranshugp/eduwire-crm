@@ -14,6 +14,9 @@ const userSchema = new mongoose.Schema({
         unique: true,
         match: /.+\@.+\..+/
     },
+    phoneno:{
+        type:String,
+    },
     role: {
         type: String,
         enum: ['admin', 'student','counsellor'],
@@ -23,8 +26,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 6
-    }
-    
+    },
+ isVerified: { type: Boolean, default: false },
+  otp: String,
+  otpExpiry: Date,
     
 })
 

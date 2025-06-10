@@ -31,7 +31,7 @@ const ViewInstitutions = () => {
         {institutions.map((inst) => (
           <div key={inst._id} className="bg-white border rounded shadow p-4">
             <div className="flex justify-between items-center">
-              <h3 className="text-lg font-bold uppercase">{inst.institutionName} ({inst._id})</h3>
+              <h3 className="text-lg font-bold uppercase">{inst.name} ({inst._id})</h3>
               <div className="space-x-2">
                 <button className="text-blue-600 hover:text-blue-800">
                   <FaEye />
@@ -43,7 +43,7 @@ const ViewInstitutions = () => {
             </div>
 
             <p className="text-sm text-gray-700 mt-1">
-              <strong>Institute Type:</strong> {inst.instituteType} | 
+              <strong>Institute Type:</strong> {inst.type} | 
               <strong> Country:</strong> {inst.country} | 
               <strong> Campus:</strong> {inst.campus}
             </p>

@@ -7,6 +7,7 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phoneno: '',
     role: 'student',
     password: '',
     confirmPassword: ''
@@ -15,7 +16,6 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -28,7 +28,6 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setSuccessMsg('');
 
     if (formData.password !== formData.confirmPassword) {
       return setError('❌ Passwords do not match');
@@ -36,11 +35,12 @@ const Register = () => {
 
     setLoading(true);
     try {
-      const { name, email, role, password } = formData;
-      await axios.post('/auth/register', { name, email, role, password });
+      const { name, email, phoneno, role, password } = formData;
+      const res = await axios.post('/auth/register', { name, email, phoneno, role, password });
 
-      setSuccessMsg('✅ Registration successful! Redirecting...');
-      setTimeout(() => navigate('/login'), 2000);
+      // Navigate to verify-email page passing userId and email
+      navigate('/verify-email', { state: { userId: res.data.userId, email: res.data.email } });
+
     } catch (err) {
       setError(err.response?.data?.message || '❌ Registration failed. Please try again.');
     } finally {
@@ -56,12 +56,6 @@ const Register = () => {
         {error && (
           <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 border border-red-300">
             {error}
-          </div>
-        )}
-
-        {successMsg && (
-          <div className="bg-green-100 text-green-700 px-4 py-2 rounded mb-4 border border-green-300">
-            {successMsg}
           </div>
         )}
 
@@ -81,6 +75,16 @@ const Register = () => {
             name="email"
             placeholder="Email Address"
             value={formData.email}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-400"
+          />
+
+          <input
+            type="tel"
+            name="phoneno"
+            placeholder="Phone Number (e.g. +919876543210)"
+            value={formData.phoneno}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-400"

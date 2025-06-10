@@ -13,6 +13,9 @@ const countries = require('./data/countries'); // Optional
 const statusRoutes = require('./Routes/statusRoutes');
 const institutionsRouter = require('./Routes/institutionRoutes');
 
+const applicationRoutes = require('./Routes/applicationRoutes')
+
+
 
 
 
@@ -37,9 +40,19 @@ seedCountriesIfNeeded();
 
 
 
+
+
+
+
 // Sample route
 app.get('/', (req, res) => {
   res.send('Hello World!');
+});
+
+app.get('/test-whatsapp', async (req, res) => {
+  const sendWhatsapp = require('./utils/whatsappSender');
+  await sendWhatsapp('+917389669888', 'Test message from Eduwire!');
+  res.send('Message sent');
 });
 
 
@@ -49,12 +62,13 @@ app.get('/api/countries', async (req, res) => {
   const countries = await Country.find(); // or your model name
   res.json(countries);
 });
-app.use('/api/users', require('./Routes/userRoutes'));
+app.use('/api/users', userRoutes);
 
 app.use('/api/representing-countries', countryRoutes);
 
 app.use('/api/status', statusRoutes);
 app.use('/api/institutions', institutionsRouter);
+app.use('/api/applications', applicationRoutes);
 
 
 
