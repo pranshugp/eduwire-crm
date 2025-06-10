@@ -76,7 +76,7 @@ const leadSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['New', 'In Progress', 'Followed Up', 'Converted', 'Not Interested'],
+        enum: ['New', 'In Process', 'Future Lead', 'Completed', 'Not responding','Failed'],
         default: 'New'
     },
     leaddate:{
